@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#080910">
+<title>Donate | WINNONAMEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080910;--card:rgba(255,255,255,.055);--border:rgba(255,255,255,.11);--muted:#999aab;--purple:#9875ff;--text:#f4f4fa}
+*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:radial-gradient(ellipse at 15% 15%,#35205a66,transparent 45%),radial-gradient(ellipse at 85% 75%,#143a6960,transparent 45%),#080910;color:var(--text);font-family:Inter,sans-serif;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,100%);padding:30px;border:1px solid var(--border);border-radius:25px;background:var(--card);backdrop-filter:blur(18px);text-align:center;box-shadow:0 20px 80px #0007}
+.mark{width:58px;height:58px;margin:0 auto 16px;border-radius:18px;display:grid;place-items:center;background:#9875ff22;color:#c5b3ff;font-size:25px}.eyebrow{font-size:11px;letter-spacing:3px;color:#bba8ff;font-weight:800;margin-bottom:12px}.card h1{font-size:28px;margin-bottom:9px}.intro{font-size:13px;line-height:1.8;color:var(--muted)}
+.section-title{text-align:left;font-size:12px;font-weight:700;margin:25px 0 12px;color:#ded9f4}.amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.amount{border:1px solid var(--border);background:#ffffff08;color:#e9e5f5;border-radius:12px;padding:13px 5px;font:700 13px Inter;cursor:pointer;transition:.2s}.amount:hover{border-color:#9875ff99;background:#9875ff18}.amount.active{border-color:var(--purple);background:linear-gradient(130deg,#865cff55,#528eff33);box-shadow:0 0 0 1px #9875ff55}
+.custom-wrap{display:flex;align-items:center;gap:10px;margin-top:10px;border:1px solid var(--border);background:#08091080;border-radius:12px;padding:0 14px}.custom-wrap span{color:var(--muted);font-size:13px}.custom-wrap input{width:100%;padding:13px 0;background:transparent;border:0;outline:0;color:white;font:600 14px Inter}.custom-wrap input::placeholder{color:#77788a}
+.qr-area{margin:22px auto 16px;padding:17px;width:min(310px,100%);border-radius:20px;background:#fff;color:#16121e;display:none}.qr-area.show{display:block}.qr-area img{display:block;width:100%;aspect-ratio:1;object-fit:contain}.bank-name{font-size:11px;font-weight:800;color:#3d246f;margin-top:10px;letter-spacing:.4px}.account{font-size:12px;font-weight:700;margin-top:6px}.account-name{font-size:11px;color:#514a5d;margin-top:4px}.qr-placeholder{width:min(310px,100%);aspect-ratio:1;margin:22px auto 16px;border:1px dashed #9875ff80;border-radius:18px;display:grid;place-items:center;padding:25px;background:#ffffff05;color:#c5b3ff}.qr-placeholder strong{display:block;font-size:13px;margin-bottom:8px}.qr-placeholder span{font-size:11px;line-height:1.7;color:var(--muted)}
+.selected{font-size:13px;color:var(--muted);margin-top:14px}.selected strong{color:#c8b5ff;font-size:18px;margin-left:5px}.hint{font-size:10px;line-height:1.7;color:var(--muted);margin:13px auto 0;max-width:390px}.back{display:inline-block;margin-top:22px;padding:12px 18px;border-radius:11px;background:linear-gradient(110deg,#865cff,#528eff);color:white;text-decoration:none;font-size:12px;font-weight:800}.error{display:none;color:#ffaaaa;font-size:11px;margin-top:10px}.error.show{display:block}
+@media(max-width:420px){body{padding:14px}.card{padding:23px 18px}.amount{font-size:12px}}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="mark">♥</div><div class="eyebrow">WINNONAMEX</div><h1>Donate</h1>
+  <p class="intro">Cảm ơn bạn đã ghé thăm và ủng hộ mình. Chọn số tiền bên dưới để tạo mã QR chuyển khoản Vietcombank.</p>
+  <div class="section-title">CHỌN SỐ TIỀN ỦNG HỘ</div>
+  <div class="amounts" id="amounts">
+    <button class="amount" type="button" data-amount="5000">5.000đ</button>
+    <button class="amount" type="button" data-amount="10000">10.000đ</button>
+    <button class="amount" type="button" data-amount="20000">20.000đ</button>
+    <button class="amount active" type="button" data-amount="50000">50.000đ</button>
+    <button class="amount" type="button" data-amount="100000">100.000đ</button>
+    <button class="amount" type="button" data-amount="200000">200.000đ</button>
+    <button class="amount" type="button" data-amount="500000">500.000đ</button>
+  </div>
+  <label class="section-title" for="customAmount" style="display:block">HOẶC NHẬP SỐ TIỀN KHÁC</label>
+  <div class="custom-wrap"><input id="customAmount" type="number" min="1000" step="1000" inputmode="numeric" placeholder="Nhập số tiền (tối thiểu 1.000đ)"><span>VNĐ</span></div>
+  <div class="selected">Số tiền đã chọn: <strong id="selectedAmount">50.000đ</strong></div>
+  <div class="qr-area show" id="qrArea">
+    <img id="qrImage" alt="Mã QR chuyển khoản Vietcombank">
+    <div class="bank-name">VIETCOMBANK</div>
+    <div class="account">1705586790</div>
+    <div class="account-name">NGUYEN DUC ANH DUNG</div>
+  </div>
+  <div class="error" id="qrError">Không tải được mã QR. Hãy kiểm tra kết nối mạng rồi tải lại trang.</div>
+  <p class="hint">Mở ứng dụng ngân hàng và quét mã QR. Số tiền sẽ được điền sẵn trong mã. Vui lòng kiểm tra đúng tên người nhận trước khi xác nhận chuyển khoản.</p>
+  <a class="back" href="index.html">← Quay lại trang chủ</a>
+</main>
+<script>
+(() => {
+  const account = '1705586790';
+  const accountName = 'NGUYEN DUC ANH DUNG';
+  const bank = 'VCB';
+  const buttons = [...document.querySelectorAll('.amount')];
+  const input = document.getElementById('customAmount');
+  const selected = document.getElementById('selectedAmount');
+  const qr = document.getElementById('qrImage');
+  const error = document.getElementById('qrError');
+  const format = n => new Intl.NumberFormat('vi-VN').format(n) + 'đ';
+  let current = 50000;
+  function update(amount) {
+    current = amount;
+    selected.textContent = amount > 0 ? format(amount) : 'Chưa chọn';
+    buttons.forEach(b => b.classList.toggle('active', Number(b.dataset.amount) === amount && !input.value));
+    if (!Number.isSafeInteger(amount) || amount < 1000) { qr.removeAttribute('src'); return; }
+    const params = new URLSearchParams({amount:String(amount), addInfo:'DONATE WINNONAMEX', accountName});
+    qr.src = `https://img.vietqr.io/image/${bank}-${account}-qr_only.png?${params.toString()}`;
+    error.classList.remove('show');
+  }
+  buttons.forEach(button => button.addEventListener('click', () => {
+    input.value = '';
+    update(Number(button.dataset.amount));
+  }));
+  input.addEventListener('input', () => {
+    const amount = Math.floor(Number(input.value));
+    update(Number.isFinite(amount) ? amount : 0);
+  });
+  qr.addEventListener('error', () => error.classList.add('show'));
+  update(current);
+})();
+</script>
+</body></html>
